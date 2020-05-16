@@ -1,17 +1,20 @@
-// const title = document.getElementById('task-title');
+const form = document.querySelector('form');
 
-// title.innerText = 'Hello World';
+form.addEventListener('submit', formSubmit);
 
-// title.textContent = 'Today was a great day';
+function formSubmit(e) {
 
-const title = document.querySelector('#task-title');
+    const task = document.getElementById('task').value;
 
-console.log(title);
+    let tasks;
+    if (localStorage.getItem('tasks') === null) {
+        tasks = []
+    } else {
+        tasks = JSON.stringify(localStorage.getItem('tasks'));
+    }
 
-const items = document.getElementsByClassName('collection-item');
-
-console.log(items);
-
-console.log(items[0]);
-
-items[0].style.color = 'blue';
+    tasks.push(task)
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    alert('task saved');
+    e.preventDefault();
+}
